@@ -8,8 +8,13 @@ namespace Features
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
+            Func <int,int> squares = x => x * x;
+            Action<int> action = x => Console.WriteLine(x);
+            action(squares(4));
+
             IEnumerable<Employee> developers = new Employee[]
             {
                new Employee{Id=1, Name="Dudu"},
@@ -28,6 +33,11 @@ namespace Features
             Console.ReadKey();
 
             // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
+        }
+
+        private static int Square(int arg)
+        {
+            throw new NotImplementedException();
         }
     }
 }

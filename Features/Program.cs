@@ -26,6 +26,12 @@ namespace Features
             };
             Console.WriteLine($"Number of developers: {developers.Count()}");
             IEnumerator<Employee> enumerator = developers.GetEnumerator();
+            var query = developers.Where(d => d.Name.Length == 4)
+                                  .OrderBy(d => d.Name);
+            var query2 = from developer in developers
+                         where developer.Name.Length == 4
+                         orderby developer.Name
+                         select developer;
             while(enumerator.MoveNext())
             {
                 Console.WriteLine(enumerator.Current.Name);

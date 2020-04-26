@@ -11,7 +11,12 @@ namespace Cars
     {
         static void Main(string[] args)
         {
-            var cars = ProcessFile("fuel.csv");
+            var cars = ProcessCars("fuel.csv");
+            var manufacturers = ProcessManufacturers("manufacturers.csv");
+            foreach(var item in manufacturers)
+            {
+                Console.WriteLine(item.Name);
+            }
             var query = cars.OrderByDescending(car => car.Combined)
                             .ThenBy(car => car.Name);
             var top = cars.Where(c => c.Manufacturer == "BMW" && c.Year == 2016)
@@ -26,7 +31,17 @@ namespace Cars
             Console.ReadKey();
         }
 
-        private static List<Car> ProcessFile(string path)
+        private static List<Manufactuerer> ProcessManufacturers(string path)
+        {
+            return
+                File.ReadAllLines(path)
+                 .Skip(1)
+                 .Where(line => line.Length > 1)
+                 .Select(Manufactuerer.ParseFromCSV)
+                 .ToList();
+        }
+
+        private static List<Car> ProcessCars(string path)
         {
             return 
                 File.ReadAllLines(path)
